@@ -151,6 +151,12 @@
                   is_checked=realm_allow_message_editing
                   label=admin_settings_label.realm_allow_message_editing}}
 
+                {{> settings_checkbox
+                  setting_name="realm_allow_external_message_editing"
+                  prefix="id_"
+                  is_checked=realm_allow_external_message_editing
+                  label=admin_settings_label.realm_allow_external_message_editing}}
+
                 <div class="input-group">
                     <label for="id_realm_message_edit_history_visibility_policy" class="settings-field-label">{{t "Allow viewing the history of a message?"}}</label>
                     <select name="realm_message_edit_history_visibility_policy" id="id_realm_message_edit_history_visibility_policy" class="prop-element settings_select bootstrap-focus-style" data-setting-widget-type="string">
@@ -160,7 +166,7 @@
 
                 <div class="input-group time-limit-setting">
                     <label for="id_realm_message_content_edit_limit_seconds" class="settings-field-label">{{t "Time limit for editing messages" }}</label>
-                    <select name="realm_message_content_edit_limit_seconds" id="id_realm_message_content_edit_limit_seconds" class="prop-element settings_select bootstrap-focus-style" {{#unless realm_allow_message_editing}}disabled{{/unless}} data-setting-widget-type="time-limit">
+                    <select name="realm_message_content_edit_limit_seconds" id="id_realm_message_content_edit_limit_seconds" class="prop-element settings_select bootstrap-focus-style" {{#unless realm_allow_message_editing}}disabled{{/unless}} {{#unless realm_allow_external_message_editing}}disabled{{/unless}} data-setting-widget-type="time-limit">
                         {{#each msg_edit_limit_dropdown_values}}
                             <option value="{{value}}">{{text}}</option>
                         {{/each}}
@@ -169,12 +175,20 @@
                         <label for="id_realm_message_content_edit_limit_minutes" class="inline-block realm-time-limit-label">
                             {{t 'Duration editing is allowed after posting (minutes)'}}:&nbsp;
                         </label>
-                        <input type="text" id="id_realm_message_content_edit_limit_minutes"
-                          name="realm_message_content_edit_limit_minutes"
-                          class="time-limit-custom-input"
-                          autocomplete="off"
-                          value="{{ realm_message_content_edit_limit_minutes }}"
-                          {{#unless realm_allow_message_editing}}disabled{{/unless}}/>
+                        {{#if (or realm_allow_message_editing realm_allow_external_message_editing)}}
+                            <input type="text" id="id_realm_message_content_edit_limit_minutes"
+                                name="realm_message_content_edit_limit_minutes"
+                                class="time-limit-custom-input"
+                                autocomplete="off"
+                                value="{{ realm_message_content_edit_limit_minutes }}" />
+                        {{else}}
+                            <input type="text" id="id_realm_message_content_edit_limit_minutes"
+                                name="realm_message_content_edit_limit_minutes"
+                                class="time-limit-custom-input"
+                                autocomplete="off"
+                                value="{{ realm_message_content_edit_limit_minutes }}"
+                                disabled />
+                        {{/if}}
                     </div>
                 </div>
             </div>

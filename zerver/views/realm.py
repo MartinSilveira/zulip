@@ -115,6 +115,7 @@ def update_realm(
         ApiParamConfig("message_content_delete_limit_seconds"),
     ] = None,
     allow_message_editing: Json[bool] | None = None,
+    allow_external_message_editing: Json[bool] | None = None,
     mandatory_topics: Json[bool] | None = None,
     message_content_edit_limit_seconds_raw: Annotated[
         Json[int | str] | None, ApiParamConfig("message_content_edit_limit_seconds")
@@ -619,6 +620,7 @@ def update_realm_user_settings_defaults(
     web_line_height_percent: Json[int] | None = None,
     translate_emoticons: Json[bool] | None = None,
     display_emoji_reaction_users: Json[bool] | None = None,
+    # allow_others_to_edit_message: Json[bool] | None = None,
     web_home_view: Literal["recent_topics", "inbox", "all_messages"] | None = None,
     web_escape_navigates_to_home_view: Json[bool] | None = None,
     left_side_userlist: Json[bool] | None = None,

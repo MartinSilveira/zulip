@@ -454,6 +454,9 @@ function update_dependent_subsettings(property_name: string): void {
         case "realm_allow_message_editing":
             update_message_edit_sub_settings(realm.realm_allow_message_editing);
             break;
+        case "realm_allow_external_message_editing":
+            update_message_edit_sub_settings(realm.realm_allow_external_message_editing);
+            break;
         case "realm_org_join_restrictions":
             set_org_join_restrictions_dropdown();
             break;
@@ -1431,6 +1434,10 @@ export function build_page(): void {
     );
 
     $<HTMLInputElement>("input#id_realm_allow_message_editing").on("change", function () {
+        update_message_edit_sub_settings(this.checked);
+    });
+
+    $<HTMLInputElement>("input#id_realm_allow_external_message_editing").on("change", function () {
         update_message_edit_sub_settings(this.checked);
     });
 

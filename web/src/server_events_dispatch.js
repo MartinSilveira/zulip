@@ -216,6 +216,7 @@ export function dispatch_normal_event(event) {
         case "realm": {
             const realm_settings = {
                 allow_message_editing: noop,
+                allow_external_message_editing: noop,
                 avatar_changes_disabled: settings_account.update_avatar_change_display,
                 can_access_all_users_group: noop,
                 can_add_custom_emoji_group: settings_emoji.update_custom_emoji_ui,

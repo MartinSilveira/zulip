@@ -399,6 +399,7 @@ class Realm(models.Model):  # type: ignore[django-manager-missing] # django-stub
     )
 
     allow_message_editing = models.BooleanField(default=True)
+    allow_external_message_editing = models.BooleanField(default=True)
     DEFAULT_MESSAGE_CONTENT_EDIT_LIMIT_SECONDS = (
         600  # if changed, also change in admin.ts, settings_org.ts
     )
@@ -680,6 +681,7 @@ class Realm(models.Model):  # type: ignore[django-manager-missing] # django-stub
     # Define the types of the various automatically managed properties
     property_types: dict[str, type | UnionType] = dict(
         allow_message_editing=bool,
+        allow_external_message_editing=bool,
         avatar_changes_disabled=bool,
         default_code_block_language=str,
         default_language=str,

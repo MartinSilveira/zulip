@@ -180,9 +180,13 @@ export function is_content_editable(message: Message, edit_limit_seconds_buffer 
         return false;
     }
 
-    if (!message.sent_by_me) {
+    if (!realm.realm_allow_external_message_editing) {
         return false;
     }
+
+    /* if (!message.sent_by_me) {
+        return false;
+    } */
 
     if (is_widget_message(message)) {
         return false;

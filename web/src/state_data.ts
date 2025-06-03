@@ -278,6 +278,7 @@ export const realm_schema = z.object({
     password_min_length: z.number(),
     password_max_length: z.number(),
     realm_allow_message_editing: z.boolean(),
+    realm_allow_external_message_editing: z.boolean(),
     realm_authentication_methods: z.record(
         z.object({
             enabled: z.boolean(),

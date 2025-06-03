@@ -30,7 +30,7 @@ export function message_hover($message_row: JQuery): void {
 
     $current_message_hover = $message_row;
 
-    if (!message.sent_by_me || message.locally_echoed) {
+    if (message.locally_echoed) {
         // The actions and reactions icon hover logic is handled entirely by CSS
         return;
     }
@@ -52,7 +52,9 @@ export function message_hover($message_row: JQuery): void {
         args.can_move_message &&
         !$edit_content.hasClass("can-move-message")
     ) {
-        $edit_content.addClass("can-move-message");
+        if (message.sent_by_me) {
+            $edit_content.addClass("can-move-message");
+        }
         $edit_content.removeClass("can-edit-content");
         $edit_content.attr("data-tooltip-template-id", "move-message-tooltip-template");
     } else if (!args.is_content_editable && !args.can_move_message) {

@@ -66,6 +66,7 @@ const admin_settings_label = {
         defaultMessage: "Language for automated messages and invitation emails",
     }),
     realm_allow_message_editing: $t({defaultMessage: "Allow message editing"}),
+    realm_allow_external_message_editing: $t({defaultMessage: "Allow external message editing"}),
     realm_enable_read_receipts: $t({defaultMessage: "Enable read receipts"}),
     realm_enable_read_receipts_parens_text: $t({
         defaultMessage: "Users can always disable their personal read receipts.",
@@ -164,6 +165,7 @@ export function build_page(): void {
         realm_message_edit_history_visibility_policy:
             realm.realm_message_edit_history_visibility_policy,
         realm_allow_message_editing: realm.realm_allow_message_editing,
+        realm_allow_external_message_editing: realm.realm_allow_external_message_editing,
         language_list,
         realm_default_language_name: get_language_name(realm.realm_default_language),
         realm_default_language_code: realm.realm_default_language,
