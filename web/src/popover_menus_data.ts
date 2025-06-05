@@ -45,6 +45,7 @@ type ActionPopoverContext = {
     should_display_delete_option: boolean;
     should_display_read_receipts_option: boolean;
     should_display_add_reaction_option: boolean;
+	should_display_editable_by_others_option: boolean;
 };
 
 type TopicPopoverContext = {
@@ -230,6 +231,10 @@ export function get_actions_popover_content_context(message_id: number): ActionP
         not_spectator &&
         !(stream_id && stream_data.is_stream_archived(stream_id));
 
+	const should_display_editable_by_others_option =
+		message.is_me_message &&
+		is_content_editable;
+
     return {
         message_id: message.id,
         stream_id,
@@ -245,6 +250,7 @@ export function get_actions_popover_content_context(message_id: number): ActionP
         should_display_delete_option,
         should_display_read_receipts_option,
         should_display_quote_message,
+		should_display_editable_by_others_option,
     };
 }
 

@@ -188,6 +188,10 @@ export function is_content_editable(message: Message, edit_limit_seconds_buffer 
         return false;
     } */
 
+	// if (!message.is_editable_by_others) {
+	// 	return false;
+	// } 
+
     if (is_widget_message(message)) {
         return false;
     }

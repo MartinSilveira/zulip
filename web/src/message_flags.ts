@@ -72,6 +72,14 @@ export function mark_as_unread(message_ids: number[]): void {
     send_flag_update_for_messages(message_ids, "read", "remove");
 }
 
+export function editable_by_others(message: Message): void {
+	send_flag_update_for_messages([message.id], "editable_by_others", "add");
+}
+
+export function not_editable_by_others(message: Message): void {
+	send_flag_update_for_messages([message.id], "editable_by_others", "remove");
+}
+
 export function save_collapsed(message: Message): void {
     send_flag_update_for_messages([message.id], "collapsed", "add");
 }

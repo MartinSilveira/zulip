@@ -21,6 +21,7 @@ import * as stream_popover from "./stream_popover.ts";
 import {parse_html} from "./ui_util.ts";
 import * as unread_ops from "./unread_ops.ts";
 import {the} from "./util.ts";
+import * as editable_others from "./editable_others.ts";
 
 let message_actions_popover_keyboard_toggle = false;
 
@@ -153,6 +154,21 @@ export function initialize(): void {
                     false,
                     message,
                 );
+                e.preventDefault();
+                e.stopPropagation();
+                popover_menus.hide_current_popover_if_visible(instance);
+            });
+
+			$popper.one("click", ".editable_by_others", (e) => {
+                const message_id = Number($(e.currentTarget).attr("data-message-id"));
+				assert(message_lists.current !== undefined);
+                const message = message_lists.current.get(message_id);
+                assert(message !== undefined);
+				if (message.editable_by_others) {
+					editable_others.not_editable_by_others(message);
+				} else {
+					editable_others.editable_by_others(message);
+				}
                 e.preventDefault();
                 e.stopPropagation();
                 popover_menus.hide_current_popover_if_visible(instance);

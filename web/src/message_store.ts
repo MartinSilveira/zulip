@@ -122,6 +122,7 @@ export type MessageWithBooleans = (
     collapsed: boolean;
     condensed?: boolean;
     alerted: boolean;
+	editable_by_others: boolean;
 };
 
 export type MessageCleanReaction = {
@@ -176,6 +177,8 @@ export type Message = (
     local_edit_timestamp?: number; // Used for edited messages
 
     notification_sent?: boolean; // Used in message_notifications
+
+	//is_editable_by_others?: boolean;
 } & (
         | {
               type: "private";
@@ -260,6 +263,7 @@ export function convert_raw_message_to_message_with_booleans(
         topic_wildcard_mentioned: convert_flag("topic_wildcard_mentioned"),
         collapsed: convert_flag("collapsed"),
         alerted: convert_flag("has_alert_word"),
+		editable_by_others: convert_flag("editable_by_others"),
     };
 
     // Once we have set boolean flags here, the `flags` attribute is
