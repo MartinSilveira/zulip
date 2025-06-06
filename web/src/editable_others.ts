@@ -1,12 +1,12 @@
 import * as message_flags from "./message_flags.ts";
-import { Message } from "./message_store";
+import type {Message} from "./message_store.ts";
 
 export function editable_by_others(message: Message) : void {
 	message.editable_by_others = true;
-	message_flags.editable_by_others(message);
+	message_flags.let_editable_by_others(message);
 }
 
 export function not_editable_by_others(message: Message) : void {
 	message.editable_by_others = false;
-	message_flags.not_editable_by_others(message);
+	message_flags.dont_let_editable_by_others(message);
 }

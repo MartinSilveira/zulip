@@ -59,18 +59,16 @@
         </li>
         {{/if}}
 		{{!-- Group 4 --}}
-		{{! adicionar if setting da organização ativo}}
 		{{#if should_display_editable_by_others_option}}
 		<li role="separator" class="popover-menu-separator"></li>
 		<li role="none" class="link-item popover-menu-list-item">
             <a role="menuitem" data-message-id="{{message_id}}" class="editable_by_others popover-menu-link" tabindex="0">
                 <i class="popover-menu-icon zulip-icon zulip-icon-edit" aria-hidden="true"></i>
-				{{!-- {{#if msg/editable_by_others}}
-                	<span class="popover-menu-label">{{t "Dont allow others to edit message" }}</span>
+				{{#if is_editable_by_others}}
+                	<span class="popover-menu-label">{{t "Dont let others edit message" }}</span>
 				{{else}}
-					<span class="popover-menu-label">{{t "Allow others to edit message" }}</span>
-				{{/if}} --}}
-				<span class="popover-menu-label">{{t "Allow others to edit message" }}</span>
+					<span class="popover-menu-label">{{t "Let others edit message" }}</span>
+				{{/if}}
             </a>
         </li>
         {{/if}}

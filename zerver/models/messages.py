@@ -489,6 +489,9 @@ class AbstractUserMessage(models.Model):
         # Whether we've sent a push notification to the user's mobile
         # devices for this message that has not been revoked.
         "active_mobile_push_notification",
+        # Whether a message has been selected by the author to be 
+        # editable by others.
+        "editable_by_others",
     ]
     # Certain flags are used only for internal accounting within the
     # Zulip backend, and don't make sense to expose to the API.

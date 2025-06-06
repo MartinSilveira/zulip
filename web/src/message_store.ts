@@ -177,8 +177,6 @@ export type Message = (
     local_edit_timestamp?: number; // Used for edited messages
 
     notification_sent?: boolean; // Used in message_notifications
-
-	//is_editable_by_others?: boolean;
 } & (
         | {
               type: "private";

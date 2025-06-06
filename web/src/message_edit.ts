@@ -82,6 +82,7 @@ type EchoedMessageData = {
     starred: boolean;
     historical: boolean;
     collapsed: boolean;
+    editable_by_others: boolean;
 
     // These flags are rendering artifacts we'll want if the
     // edit fails and we need to revert to the original
@@ -184,34 +185,52 @@ export function is_content_editable(message: Message, edit_limit_seconds_buffer 
         return false;
     }
 
-    /* if (!message.sent_by_me) {
-        return false;
-    } */
-
-	// if (!message.is_editable_by_others) {
-	// 	return false;
-	// } 
-
     if (is_widget_message(message)) {
         return false;
     }
-
+    
     if (message.type === "stream" && stream_data.is_stream_archived(message.stream_id)) {
         return false;
     }
 
-    if (realm.realm_message_content_edit_limit_seconds === null) {
-        return true;
+    console.log("message.editable_by_others = ", message.editable_by_others, "message_id = ", message.id);
+    const editable_by_others = true;
+    if (!message.sent_by_me && !editable_by_others) {
+        return false;
+    }
+
+    /* if (realm.realm_message_content_edit_limit_seconds === null) {
+        if (message.editable_by_others) {
+            return true;
+        }
+        return false;
     }
 
     if (
         realm.realm_message_content_edit_limit_seconds +
-            edit_limit_seconds_buffer +
-            (message.timestamp - Date.now() / 1000) >
+        edit_limit_seconds_buffer +
+        (message.timestamp - Date.now() / 1000) >
         0
     ) {
-        return true;
-    }
+        if (message.editable_by_others) {
+            return true;
+        }
+        return false;
+    } */
+
+        if (realm.realm_message_content_edit_limit_seconds === null) {
+            return true;
+        }
+    
+        if (
+            realm.realm_message_content_edit_limit_seconds +
+            edit_limit_seconds_buffer +
+            (message.timestamp - Date.now() / 1000) >
+            0
+        ) {
+            return true;
+        }
+    
     return false;
 }
 
@@ -1295,6 +1314,7 @@ export async function save_message_row_edit($row: JQuery): Promise<void> {
             alerted: message.alerted,
             mentioned: message.mentioned,
             mentioned_me_directly: message.mentioned,
+            editable_by_others: message.editable_by_others,
         });
         edit_locally_echoed = true;
 

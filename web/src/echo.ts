@@ -78,6 +78,7 @@ type LocalEditRequest = Partial<{
     alerted: boolean;
     mentioned: boolean;
     mentioned_me_directly: boolean;
+    editable_by_others: boolean;
 }>;
 
 type LocalMessage = MessageRequestObject & {
@@ -426,6 +427,9 @@ export function edit_locally(message: Message, request: LocalEditRequest): Messa
             }
             if (request.collapsed !== undefined) {
                 message.collapsed = request.collapsed;
+            }
+            if (request.editable_by_others !== undefined) {
+                message.editable_by_others = request.editable_by_others;
             }
         }
     }

@@ -7,6 +7,7 @@ import * as clipboard_handler from "./clipboard_handler.ts";
 import * as compose_reply from "./compose_reply.ts";
 import * as condense from "./condense.ts";
 import {show_copied_confirmation} from "./copied_tooltip.ts";
+import * as editable_others from "./editable_others.ts";
 import * as emoji_picker from "./emoji_picker.ts";
 import * as message_edit from "./message_edit.ts";
 import * as message_lists from "./message_lists.ts";
@@ -21,7 +22,6 @@ import * as stream_popover from "./stream_popover.ts";
 import {parse_html} from "./ui_util.ts";
 import * as unread_ops from "./unread_ops.ts";
 import {the} from "./util.ts";
-import * as editable_others from "./editable_others.ts";
 
 let message_actions_popover_keyboard_toggle = false;
 
@@ -161,6 +161,7 @@ export function initialize(): void {
 
 			$popper.one("click", ".editable_by_others", (e) => {
                 const message_id = Number($(e.currentTarget).attr("data-message-id"));
+                console.log("clicked in message with id:", message_id);
 				assert(message_lists.current !== undefined);
                 const message = message_lists.current.get(message_id);
                 assert(message !== undefined);
