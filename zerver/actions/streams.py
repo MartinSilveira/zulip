@@ -1749,6 +1749,9 @@ def do_set_stream_property(stream: Stream, name: str, value: Any, acting_user: U
         StreamTopicsPolicyEnum.disable_empty_topic.value: _(
             "No *{empty_topic_display_name}* topic"
         ).format(empty_topic_display_name=empty_topic_display_name),
+        StreamTopicsPolicyEnum.only_empty_topic.value: _(
+			"Only *{empty_topic_display_name}* topic allowed"
+		).format(empty_topic_display_name=empty_topic_display_name),
     }
 
     NOTIFICATION_MESSAGES = {
