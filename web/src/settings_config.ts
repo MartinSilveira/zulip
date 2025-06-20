@@ -301,6 +301,7 @@ type PolicyValue = {
 type RealmTopicsPolicyValues = {
     allow_empty_topic: PolicyValue;
     disable_empty_topic: PolicyValue;
+    only_empty_topic: PolicyValue;
 };
 
 type StreamTopicsPolicyValues = {
@@ -322,6 +323,10 @@ export const get_realm_topics_policy_values = (): RealmTopicsPolicyValues => {
             code: "disable_empty_topic",
             description: $t({defaultMessage: 'No "{empty_topic_name}" topic'}, {empty_topic_name}),
         },
+        only_empty_topic: {
+            code: "only_empty_topic",
+            description: $t({defaultMessage: 'Only "{empty_topic_name}" topic allowed'}, {empty_topic_name}),
+        }
     };
 };
 

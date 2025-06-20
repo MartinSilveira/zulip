@@ -158,6 +158,7 @@ class MessageEditHistoryVisibilityPolicyEnum(Enum):
 class RealmTopicsPolicyEnum(Enum):
     allow_empty_topic = 2
     disable_empty_topic = 3
+    only_empty_topic = 4
 
 
 class Realm(models.Model):
