@@ -1,0 +1,11 @@
+{{! Client-side Handlebars template for rendering the group dm edit form. }}
+
+<form class="group_dm_edit_form">
+    <span class="group_dm_value_mirror hide"></span>
+    <input type="text" value="" autocomplete="off" maxlength="{{ max_group_dm_length }}" class="inline_group_dm_edit header-v"/>
+    <span class="group-dm-edit-save-wrapper">
+        {{> components/action_button custom_classes="group_dm_edit_save tippy-zulip-delayed-tooltip" icon="check" attention="quiet" intent="neutral" data-tooltip-template-id="save-button-tooltip-template" }}
+    </span>
+    {{> components/action_button custom_classes="group_dm_edit_cancel tippy-zulip-delayed-tooltip" icon="circle-x" attention="borderless" intent="neutral" data-tooltip-template-id="cancel-button-tooltip-template" }}
+    <div class="group_dm_edit_spinner"></div>
+</form>

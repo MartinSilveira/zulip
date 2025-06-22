@@ -69,6 +69,7 @@ export type MessageContainer = {
     sender_is_bot: boolean;
     sender_is_guest: boolean;
     sender_is_deactivated: boolean;
+    group_dm_name_changed: boolean;
     should_add_guest_indicator_for_sender: boolean;
     small_avatar_url: string;
     status_message: string | false;
@@ -107,6 +108,7 @@ export type MessageGroup = {
           subscribed?: boolean;
           topic: string;
           topic_display_name: string;
+          // group_dm_display_name: string;
           is_empty_string_topic: boolean;
           topic_is_resolved: boolean;
           topic_links: TopicLink[] | undefined;
@@ -381,6 +383,7 @@ function populate_group_from_message(
         const is_web_public = stream_data.is_web_public(message.stream_id);
         const topic = message.topic;
         const topic_display_name = util.get_final_topic_display_name(topic);
+        // const group_dm_display_name = ...;
         const is_empty_string_topic = topic === "";
         const match_topic = util.get_match_topic(message);
         const stream_url = hash_util.channel_url_by_user_setting(message.stream_id);
@@ -426,6 +429,7 @@ function populate_group_from_message(
             topic_links,
             topic,
             topic_display_name,
+            // group_dm_display_name,
             is_empty_string_topic,
             recipient_bar_color,
             stream_privacy_icon_color,

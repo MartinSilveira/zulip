@@ -52,6 +52,7 @@ type DirectMessageContext = {
     is_direct: boolean;
     rendered_dm_with: string;
     is_group: boolean;
+    // group_dm_display_name: string;
     user_circle_class: string | false | undefined;
     is_bot: boolean;
     dm_url: string;
@@ -69,6 +70,7 @@ const direct_message_context_properties: (keyof DirectMessageContext)[] = [
     "is_direct",
     "rendered_dm_with",
     "is_group",
+    // "group_dm_display_name",
     "user_circle_class",
     "is_bot",
     "dm_url",
@@ -448,6 +450,7 @@ function format_dm(
         is_direct: true,
         rendered_dm_with: util.format_array_as_list_with_conjunction(rendered_dm_with, "long"),
         is_group: recipient_ids.length > 1,
+        // group_dm_display_name: util.get_final_group_dm_display_name(groupdm),
         user_circle_class,
         is_bot,
         dm_url: hash_util.pm_with_url(reply_to),

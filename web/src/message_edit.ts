@@ -11,6 +11,7 @@ import render_confirm_edit_messages from "../templates/confirm_dialog/confirm_ed
 import render_confirm_merge_topics_with_rename from "../templates/confirm_dialog/confirm_merge_topics_with_rename.hbs";
 import render_confirm_moving_messages_modal from "../templates/confirm_dialog/confirm_moving_messages.hbs";
 import render_intro_resolve_topic_modal from "../templates/confirm_dialog/intro_resolve_topic.hbs";
+import render_group_dm_edit_form from "../templates/group_dm_edit_form.hbs";
 import render_message_edit_form from "../templates/message_edit_form.hbs";
 import render_message_moved_widget_body from "../templates/message_moved_widget_body.hbs";
 import render_resolve_topic_time_limit_error_modal from "../templates/resolve_topic_time_limit_error_modal.hbs";
@@ -976,6 +977,66 @@ function do_toggle_resolve_topic(
             }
         },
     });
+}
+
+export function start_inline_group_dm_edit($recipient_row: JQuery): void {
+    assert(message_lists.current !== undefined);
+    const msg_id = rows.id_for_recipient_row($recipient_row);
+    const message = message_lists.current.get(msg_id);
+    // assert(message?.type === "stream");
+    const $form = $(
+        render_group_dm_edit_form({
+            max_group_dm_length: 100
+            // is_mandatory_topics: !stream_data.can_use_empty_topic(message.stream_id),
+            // empty_string_topic_display_name: util.get_final_topic_display_name(""),
+        }),
+    );
+    message_lists.current.show_edit_group_dm_on_recipient_row($recipient_row, $form);
+    $("group_dm_edit_spinner").hide(); //fazer isto
+    // const topic = message.topic;
+    const $inline_topic_edit_input = $form.find<HTMLInputElement>("input.inline_topic_edit");
+    $inline_topic_edit_input.val("tudo bem").trigger("select").trigger("focus");
+    update_inline_topic_edit_input_max_width($inline_topic_edit_input);
+    // const stream_name = stream_data.get_stream_name_from_id(message.stream_id);
+    const typeahead = composebox_typeahead.initialize_group_dm_edit_typeahead(
+        $inline_group_dm_edit_input,
+        // stream_name,
+        false,
+    );
+
+    $form.on("keydown", (event) => {
+        handle_inline_topic_edit_keydown($form, typeahead, event);
+    });
+
+    $inline_topic_edit_input.on("input", function (this: HTMLInputElement) {
+        handle_inline_topic_edit_change(this, message.stream_id);
+    });
+
+    if (stream_data.can_use_empty_topic(message.stream_id)) {
+        const $topic_not_mandatory_placeholder = $(".inline-topic-edit-placeholder");
+
+        if (topic === "") {
+            $topic_not_mandatory_placeholder.addClass("inline-topic-edit-placeholder-visible");
+        }
+
+        $inline_topic_edit_input.on("blur", () => {
+            if ($inline_topic_edit_input.val() === "") {
+                $topic_not_mandatory_placeholder.removeClass(
+                    "inline-topic-edit-placeholder-visible",
+                );
+                $inline_topic_edit_input.attr("placeholder", util.get_final_topic_display_name(""));
+                $inline_topic_edit_input.addClass("empty-topic-display");
+            }
+        });
+
+        $inline_topic_edit_input.on("focus", () => {
+            if ($inline_topic_edit_input.val() === "") {
+                $inline_topic_edit_input.attr("placeholder", "");
+                $inline_topic_edit_input.removeClass("empty-topic-display");
+                $topic_not_mandatory_placeholder.addClass("inline-topic-edit-placeholder-visible");
+            }
+        });
+    }
 }
 
 export function start_inline_topic_edit($recipient_row: JQuery): void {

@@ -324,6 +324,11 @@ export function initialize(): void {
         );
         e.stopPropagation();
     });
+    /* $("body").on("click", ".on_hover_group_dm_edit", function (e) {
+        const $recipient_row = $(this).closest(".recipient_row");
+        message_edit.start_inline_group_dm_edit($recipient_row);
+        e.stopPropagation();
+    }); */
     $("body").on("click", ".on_hover_topic_edit", function (e) {
         const $recipient_row = $(this).closest(".recipient_row");
         message_edit.start_inline_topic_edit($recipient_row);
