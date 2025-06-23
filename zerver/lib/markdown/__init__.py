@@ -1505,7 +1505,7 @@ def make_emoji(codepoint: str, display_string: str) -> Element:
     # Replace underscore in emoji's title with space
     title = display_string[1:-1].replace("_", " ")
     span = Element("span")
-    span.set("class", f"emoji large-emoji emoji-{codepoint}")
+    span.set("class", f"emoji emoji-{codepoint}")
     span.set("title", title)
     span.set("role", "img")
     span.set("aria-label", title)
@@ -1516,7 +1516,7 @@ def make_emoji(codepoint: str, display_string: str) -> Element:
 def make_realm_emoji(src: str, display_string: str) -> Element:
     elt = Element("img")
     elt.set("src", src)
-    elt.set("class", "emoji large-emoji")
+    elt.set("class", "emoji")
     elt.set("alt", display_string)
     elt.set("title", display_string[1:-1].replace("_", " "))
     return elt

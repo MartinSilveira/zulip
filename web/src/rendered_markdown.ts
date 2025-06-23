@@ -381,4 +381,18 @@ export const update_elements = ($content: JQuery): void => {
             .contents()
             .unwrap();
     }
+
+    $content.find(".emoji").addClass("large-emoji");
+
+    /* const is_only_emoji = ($content: JQuery): boolean => {
+        const $emojis = $content.children(".emoji");
+        return (
+            $emojis.length === 1 &&
+            $content.contents().length === 1
+        );
+    };
+
+    if (is_only_emoji($content)) {
+        $content.find(".emoji").addClass("large-emoji");
+    } */
 };
