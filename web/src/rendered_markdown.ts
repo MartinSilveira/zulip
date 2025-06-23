@@ -24,6 +24,7 @@ import * as timerender from "./timerender.ts";
 import * as user_groups from "./user_groups.ts";
 import {user_settings} from "./user_settings.ts";
 import * as util from "./util.ts";
+import { truncate } from "@sentry/core";
 
 /*
     rendered_markdown
@@ -382,17 +383,23 @@ export const update_elements = ($content: JQuery): void => {
             .unwrap();
     }
 
-    $content.find(".emoji").addClass("large-emoji");
+    // $content.find(".emoji").addClass("large-emoji");
 
-    /* const is_only_emoji = ($content: JQuery): boolean => {
-        const $emojis = $content.children(".emoji");
+    const is_only_emoji = ($content: JQuery): boolean => {
+        const $paragraphs = $content.children("p");
+        if ($paragraphs.length !== 1) {
+            return false;
+        }
+    
+        const $p = $paragraphs.first();
+        const $emojis = $p.children(".emoji");
+    
         return (
-            $emojis.length === 1 &&
-            $content.contents().length === 1
+            $emojis.length === $p.contents().length
         );
     };
 
     if (is_only_emoji($content)) {
         $content.find(".emoji").addClass("large-emoji");
-    } */
+    }
 };
