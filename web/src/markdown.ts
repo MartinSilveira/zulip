@@ -484,7 +484,7 @@ export function is_status_message(raw_content: string): boolean {
 }
 
 function make_emoji_span(codepoint: string, title: string, alt_text: string): string {
-    return `<span aria-label="${_.escape(title)}" class="emoji emoji-${_.escape(
+    return `<span aria-label="${_.escape(title)}" class="emoji large-emoji emoji-${_.escape(
         codepoint,
     )}" role="img" title="${_.escape(title)}">${_.escape(alt_text)}</span>`;
 }
@@ -541,7 +541,7 @@ function handleEmoji({
     const emoji_url = get_realm_emoji_url(emoji_name);
 
     if (emoji_url) {
-        return `<img alt="${_.escape(alt_text)}" class="emoji" src="${_.escape(
+        return `<img alt="${_.escape(alt_text)}" class="emoji large-emoji" src="${_.escape(
             emoji_url,
         )}" title="${_.escape(title)}">`;
     }
