@@ -807,7 +807,7 @@ export function parse({
         });
     }
 
-    function emojiHandler(emoji_name: string, message_content): string {
+    function emojiHandler(emoji_name: string): string {
         return handleEmoji({
             emoji_name,
             get_realm_emoji_url: helper_config.get_realm_emoji_url,

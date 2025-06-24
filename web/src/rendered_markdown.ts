@@ -24,7 +24,6 @@ import * as timerender from "./timerender.ts";
 import * as user_groups from "./user_groups.ts";
 import {user_settings} from "./user_settings.ts";
 import * as util from "./util.ts";
-import { truncate } from "@sentry/core";
 
 /*
     rendered_markdown
@@ -90,6 +89,27 @@ function wrap_mention_content_in_dom_element(element: HTMLElement, is_bot = fals
     const mention_text = $(element).text();
     $(element).html(render_mention_content_wrapper({mention_text, is_bot}));
     return element;
+}
+
+// Function that verifies if the content of a message is
+// composed only by emojis.
+function is_emojis_only_message($content: JQuery): boolean {
+    const $paragraphs = $content.children("p");
+
+    const $children = $paragraphs.contents();
+
+    return $children.toArray().every((node) => {
+        // Allows text nodes if they only contain whitespace.
+        if (node.nodeType === Node.TEXT_NODE) {
+            return !node.textContent?.trim();
+        }
+
+        if (node instanceof HTMLElement) {
+            return node.classList.contains("emoji");
+        }
+
+        return false;
+    });
 }
 
 // Helper function to update a mentioned user's name.
@@ -383,23 +403,9 @@ export const update_elements = ($content: JQuery): void => {
             .unwrap();
     }
 
-    // $content.find(".emoji").addClass("large-emoji");
-
-    const is_only_emoji = ($content: JQuery): boolean => {
-        const $paragraphs = $content.children("p");
-        if ($paragraphs.length !== 1) {
-            return false;
-        }
-    
-        const $p = $paragraphs.first();
-        const $emojis = $p.children(".emoji");
-    
-        return (
-            $emojis.length === $p.contents().length
-        );
-    };
-
-    if (is_only_emoji($content)) {
+    // Display emojis in a message as a larger version (32x32)
+    // if the message is composed only by emojis.
+    if (is_emojis_only_message($content)) {
         $content.find(".emoji").addClass("large-emoji");
     }
 };
